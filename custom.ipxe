@@ -1,7 +1,78 @@
 #!ipxe
-###
-### netboot.xyz-custom menu
-###
+#dhcp
 
-dhcp 
-chain http://10.227.26.200/boot_menu.ipxe
+echo Entering Boot Menu...
+
+
+set base-url http://10.227.26.200/
+
+:start
+menu Please choose an OS
+
+item --gap Ubuntu 1804 Automated
+item U1 Ubuntu 1804 KickStart (SDA)
+item U2 Ubuntu 1804 KickStart (SDB)
+item U3 Ubuntu 1804 KickStart (Select a Drive)
+
+item --gap CentOS 7 Automated
+item C1 CentOS 7 Kickstart (SDA)
+item C2 CentOS 7 KickStart (SDB)
+item C3 CentOS 7 KickStart (Select a Drive)
+
+item --gap Ubuntu 1804 Standard
+item Y1 Ubuntu 18.04 Server
+
+item --gap CentOS 7 Standard
+item Z1 CentOS 7 x86_64
+
+item --gap Options
+item exit1 Back to iPXE Shell
+
+choose target && goto ${target}
+
+:U1
+kernel ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/linux
+initrd ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/initrd.gz
+imgargs linux /install/vmlinuz  preseed/url=http://10.227.26.200/Ubuntu1804Packages/ps_http_sda.preseed auto=true priority=critical debian-installer/locale=en_US keyboard-configuration/layoutcode=us ubiquity/reboot=true languagechooser/language-name=English countrychooser/shortlist=US localechooser/supported-locales=en_US.UTF-8 boot=casper automatic-ubiquity quiet splash noprompt noshell
+boot
+
+:U2
+kernel ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/linux
+initrd ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/initrd.gz
+imgargs linux /install/vmlinuz  preseed/url=http://10.227.26.200/Ubuntu1804Packages/ps_http_sdb.preseed auto=true priority=critical debian-installer/locale=en_US keyboard-configuration/layoutcode=us ubiquity/reboot=true languagechooser/language-name=English countrychooser/shortlist=US localechooser/supported-locales=en_US.UTF-8 boot=casper automatic-ubiquity quiet splash noprompt noshell
+boot
+
+:U3
+kernel ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/linux
+initrd ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/initrd.gz
+imgargs linux /install/vmlinuz  preseed/url=http://10.227.26.200/Ubuntu1804Packages/ps_http_select.preseed auto=true priority=critical debian-installer/locale=en_US keyboard-configuration/layoutcode=us ubiquity/reboot=true languagechooser/language-name=English countrychooser/shortlist=US localechooser/supported-locales=en_US.UTF-8 boot=casper automatic-ubiquity quiet splash noprompt noshell
+boot
+
+:C1 
+kernel ${base}/centos7/images/pxeboot/vmlinuz initrd=initrd.img ks=http://10.227.26.200/CentosPackages/ks_http_sda.cfg repo=http://10.227.26.200/centos7
+initrd ${base}/centos7/images/pxeboot/initrd.img
+boot
+
+:C2
+kernel ${base}/centos7/images/pxeboot/vmlinuz initrd=initrd.img ks=http://10.227.26.200/CentosPackages/ks_http_sdb.cfg repo=http://10.227.26.200/centos7
+initrd ${base}/centos7/images/pxeboot/initrd.img
+boot 
+
+:C3
+kernel ${base}/centos7/images/pxeboot/vmlinuz initrd=initrd.img ks=http://10.227.26.200/CentosPackages/ks_http_select.cfg repo=http://10.227.26.200/centos7
+initrd ${base}/centos7/images/pxeboot/initrd.img
+boot
+
+:Y1
+kernel ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/linux
+initrd ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/initrd.gz
+boot
+
+:Z1
+kernel ${base}/centos7/images/pxeboot/vmlinuz initrd=initrd.img repo=http://10.227.26.200/centos7
+initrd ${base}/centos7/images/pxeboot/initrd.img
+boot
+
+:exit1
+shell
+
