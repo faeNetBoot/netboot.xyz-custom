@@ -5,7 +5,7 @@ echo Entering Boot Menu...
 
 
 set base-url http://10.227.26.200/
-
+set base http://10.227.26.200
 :start
 menu Please choose an OS
 
@@ -31,36 +31,33 @@ item exit1 Back to iPXE Shell
 choose target && goto ${target}
 
 :U1
-kernel ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/linux
-initrd ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/initrd.gz
-imgargs linux /install/vmlinuz  preseed/url=http://10.227.26.200/Ubuntu1804Packages/ps_http_sda.preseed auto=true priority=critical debian-installer/locale=en_US keyboard-configuration/layoutcode=us ubiquity/reboot=true languagechooser/language-name=English countrychooser/shortlist=US localechooser/supported-locales=en_US.UTF-8 boot=casper automatic-ubiquity quiet splash noprompt noshell
+kernel http://10.227.26.200/Ubuntu1804/install/netboot/ubuntu-installer/amd64/linux preseed/url=http://10.227.26.200/Ubuntu1804Packages/ps_http_sda.preseed auto=true priority=critical debian-installer/locale=en_US keyboard-configuration/layoutcode=us ubiquity/reboot=true languagechooser/language-name=English countrychooser/shortlist=US localechooser/supported-locales=en_US.UTF-8 boot=casper automatic-ubiquity quiet splash noprompt noshell -- initrd=initrd.gz
+initrd http://10.227.26.200/Ubuntu1804/install/netboot/ubuntu-installer/amd64/initrd.gz
 boot
 
 :U2
-kernel ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/linux
-initrd ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/initrd.gz
-imgargs linux /install/vmlinuz  preseed/url=http://10.227.26.200/Ubuntu1804Packages/ps_http_sdb.preseed auto=true priority=critical debian-installer/locale=en_US keyboard-configuration/layoutcode=us ubiquity/reboot=true languagechooser/language-name=English countrychooser/shortlist=US localechooser/supported-locales=en_US.UTF-8 boot=casper automatic-ubiquity quiet splash noprompt noshell
+kernel http://10.227.26.200/Ubuntu1804/install/netboot/ubuntu-installer/amd64/linux preseed/url=http://10.227.26.200/Ubuntu1804Packages/ps_http_sdb.preseed auto=true priority=critical debian-installer/locale=en_US keyboard-configuration/layoutcode=us ubiquity/reboot=true languagechooser/language-name=English countrychooser/shortlist=US localechooser/supported-locales=en_US.UTF-8 boot=casper automatic-ubiquity quiet splash noprompt noshell -- initrd=initrd.gz
+initrd http://10.227.26.200/Ubuntu1804/install/netboot/ubuntu-installer/amd64/initrd.gz
 boot
 
 :U3
-kernel ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/linux
-initrd ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/initrd.gz
-imgargs linux /install/vmlinuz  preseed/url=http://10.227.26.200/Ubuntu1804Packages/ps_http_select.preseed auto=true priority=critical debian-installer/locale=en_US keyboard-configuration/layoutcode=us ubiquity/reboot=true languagechooser/language-name=English countrychooser/shortlist=US localechooser/supported-locales=en_US.UTF-8 boot=casper automatic-ubiquity quiet splash noprompt noshell
+kernel http://10.227.26.200/Ubuntu1804/install/netboot/ubuntu-installer/amd64/linux preseed/url=http://10.227.26.200/Ubuntu1804Packages/ps_http_select.preseed auto=true priority=critical debian-installer/locale=en_US keyboard-configuration/layoutcode=us ubiquity/reboot=true languagechooser/language-name=English countrychooser/shortlist=US localechooser/supported-locales=en_US.UTF-8 boot=casper automatic-ubiquity quiet splash noprompt noshell -- initrd=initrd.gz
+initrd http://10.227.26.200/Ubuntu1804/install/netboot/ubuntu-installer/amd64/initrd.gz
 boot
 
 :C1 
-kernel ${base}/centos7/images/pxeboot/vmlinuz initrd=initrd.img ks=http://10.227.26.200/CentosPackages/ks_http_sda.cfg repo=http://10.227.26.200/centos7
-initrd ${base}/centos7/images/pxeboot/initrd.img
+kernel http://10.227.26.200/centos7/images/pxeboot/vmlinuz ks=http://10.227.26.200/CentosPackages/ks_http_sda.cfg repo=http://mirror.centos.org/centos/7/os/x86_64 initrd=initrd.img
+initrd http://10.227.26.200/centos7/images/pxeboot/initrd.img
 boot
 
 :C2
-kernel ${base}/centos7/images/pxeboot/vmlinuz initrd=initrd.img ks=http://10.227.26.200/CentosPackages/ks_http_sdb.cfg repo=http://10.227.26.200/centos7
-initrd ${base}/centos7/images/pxeboot/initrd.img
+kernel http://10.227.26.200/centos7/images/pxeboot/vmlinuz ks=http://10.227.26.200/CentosPackages/ks_http_sdb.cfg repo=http://mirror.centos.org/centos/7/os/x86_64 initrd=initrd.img
+initrd http://10.227.26.200/centos7/images/pxeboot/initrd.img
 boot 
 
 :C3
-kernel ${base}/centos7/images/pxeboot/vmlinuz initrd=initrd.img ks=http://10.227.26.200/CentosPackages/ks_http_select.cfg repo=http://10.227.26.200/centos7
-initrd ${base}/centos7/images/pxeboot/initrd.img
+kernel http://10.227.26.200/centos7/images/pxeboot/vmlinuz ks=http://10.227.26.200/CentosPackages/ks_http_select.cfg repo=http://mirror.centos.org/centos/7/os/x86_64 initrd=initrd.img
+initrd http://10.227.26.200/centos7/images/pxeboot/initrd.img
 boot
 
 :Y1
@@ -69,10 +66,11 @@ initrd ${base-url}/Ubuntu1804/install/netboot/ubuntu-installer/amd64/initrd.gz
 boot
 
 :Z1
-kernel ${base}/centos7/images/pxeboot/vmlinuz initrd=initrd.img repo=http://10.227.26.200/centos7
+kernel ${base}/centos7/images/pxeboot/vmlinuz initrd=initrd.img repo=http://mirror.centos.org/centos/7/os/x86_64
 initrd ${base}/centos7/images/pxeboot/initrd.img
 boot
 
 :exit1
 shell
+
 
